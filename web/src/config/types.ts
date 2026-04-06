@@ -4,6 +4,7 @@ export interface Config {
 	logger: Logger;
 	discord: Discord;
 	images: Images;
+	genius: Genius;
 	plex: Plex;
 }
 
@@ -94,6 +95,11 @@ export interface Copyparty {
 	url: string;
 	password: string;
 	expiryMinutes: number;
+}
+
+export interface Genius {
+	enabled: boolean;
+	apiKey: string;
 }
 
 export interface Plex {
