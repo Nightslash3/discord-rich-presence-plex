@@ -252,6 +252,24 @@ export const configSchema: ObjectSchema<Config> = {
 				},
 			},
 		},
+		genius: {
+			type: "object",
+			label: "Genius Settings",
+			description: "When enabled, a Genius search URL is available as a template variable for tracks. If an API key is provided, the Genius API is used to find the exact song page; otherwise a search URL is generated.",
+			fields: {
+				enabled: {
+					type: "boolean",
+					label: "Enabled",
+					description: "Enable Genius integration to make a {{ .GeniusUrl }} template variable available for track display rules",
+				},
+				apiKey: {
+					type: "string",
+					label: "API Key",
+					description: "Genius API access token. Get one at https://genius.com/api-clients — optional, a search URL is used if left empty.",
+					masked: true,
+				},
+			},
+		},
 		plex: {
 			type: "object",
 			label: "Plex Settings",

@@ -92,6 +92,7 @@ export const templateVariableGroups: TemplateVariableGroup[] = [
 			{ name: "TrackMusicBrainzUrl", description: "Track MusicBrainz URL" },
 			{ name: "AlbumMusicBrainzUrl", description: "Album MusicBrainz URL" },
 			{ name: "ArtistMusicBrainzUrl", description: "Artist MusicBrainz URL" },
+			{ name: "GeniusUrl", description: "Genius lyrics URL (requires Genius integration enabled)" },
 		],
 	},
 	{

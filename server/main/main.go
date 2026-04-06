@@ -127,6 +127,7 @@ func main() {
 			cacheService,
 			imageService,
 			cfg.Images,
+			cfg.Genius,
 			cfg.Discord,
 		)
 		mediatorService.Start() //nolint:contextcheck

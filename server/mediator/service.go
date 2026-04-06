@@ -5,6 +5,7 @@ import (
 	"drpp/server/cache"
 	"drpp/server/config"
 	"drpp/server/discord"
+	"drpp/server/genius"
 	"drpp/server/images"
 	"drpp/server/logger"
 	"drpp/server/plex"
@@ -29,6 +30,7 @@ type Service struct {
 	cacheService   *cache.Service
 	imageService   ImageService
 	imagesConfig   config.Images
+	geniusConfig   config.Genius
 	displayRules   config.DisplayRules
 	ipcTimeout     time.Duration
 	stopTimeout    time.Duration
@@ -50,6 +52,7 @@ func NewService(
 	cacheService *cache.Service,
 	imageService ImageService,
 	imagesConfig config.Images,
+	geniusConfig config.Genius,
 	discordConfig config.Discord,
 ) *Service {
 	return &Service{
@@ -58,6 +61,7 @@ func NewService(
 		cacheService:   cacheService,
 		imageService:   imageService,
 		imagesConfig:   imagesConfig,
+		geniusConfig:   geniusConfig,
 		displayRules:   discordConfig.DisplayRules,
 		ipcTimeout:     time.Duration(discordConfig.IpcTimeoutSeconds) * time.Second,
 		stopTimeout:    time.Duration(discordConfig.StopTimeoutSeconds) * time.Second,
@@ -206,6 +210,12 @@ func (s *Service) handlePlexActivity(ctx context.Context, activity *plex.Activit
 		return
 	}
 	templateData := buildTemplateData(activity)
+	if s.geniusConfig.Enabled && activity.MediaType == "track" {
+		artist, _ := templateData["Artist"].(string)
+		title, _ := templateData["Title"].(string)
+		geniusUrl := genius.Search(ctx, s.geniusConfig.ApiKey.Value(), artist, title)
+		templateData["GeniusUrl"] = geniusUrl
+	}
 	logger.Debug("Template: %#v", templateData)
 	var activityType discord.ActivityType
 	if activity.MediaType == "track" {

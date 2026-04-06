@@ -17,6 +17,7 @@ type Config struct {
 	Logger  Logger  `yaml:"logger" json:"logger"`
 	Discord Discord `yaml:"discord" json:"discord"`
 	Images  Images  `yaml:"images" json:"images"`
+	Genius  Genius  `yaml:"genius" json:"genius"`
 	Plex    Plex    `yaml:"plex" json:"plex"`
 }
 
@@ -107,6 +108,11 @@ type Copyparty struct {
 	Url           string        `yaml:"url" json:"url" validate:"required_if=Enabled true,omitempty,http_url"`
 	Password      crypto.String `yaml:"password" json:"password"`
 	ExpiryMinutes int           `yaml:"expiryMinutes" json:"expiryMinutes" validate:"min=0"`
+}
+
+type Genius struct {
+	Enabled bool          `yaml:"enabled" json:"enabled"`
+	ApiKey  crypto.String `yaml:"apiKey" json:"apiKey" validate:"required_if=Enabled true"`
 }
 
 type Plex struct {
