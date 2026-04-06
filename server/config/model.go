@@ -112,7 +112,7 @@ type Copyparty struct {
 
 type Genius struct {
 	Enabled bool          `yaml:"enabled" json:"enabled"`
-	ApiKey  crypto.String `yaml:"apiKey" json:"apiKey" validate:"required_if=Enabled true"`
+	ApiKey  crypto.String `yaml:"apiKey" json:"apiKey"`
 }
 
 type Plex struct {
